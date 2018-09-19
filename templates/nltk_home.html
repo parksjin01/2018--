@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- 합쳐지고 최소화된 최신 CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+    <!-- 부가적인 테마 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+    <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script>
+        function setLevel(level) {
+            var element = document.getElementById("level");
+            var label = document.getElementById("label");
+            element.value = level;
+            if (level == 0)
+                label.innerHTML = "Normal";
+            else if (level == 1)
+                label.innerHTML = "Specific";
+            else if (level == 2)
+                label.innerHTML = "More Specific";
+        }
+
+    </script>
+    <title>NLTK English grouping</title>
+</head>
+<body style="background-image: url( image/background.png ); cursor: url(image/kuwahara.jpg), pointer;">
+<nav class="navbar navbar-default navbar-fixed-top" style="background: #ffffff00; border-color:#ffffff00"">
+    <div class="container" style="padding: 20px 0; background: #ffffff00; border-color:#ffffff00"">
+        <ul class="nav nav-pills">
+          <li role="presentation" class="active"><a href="/">Home</a></li>
+          <li role="presentation"><a href="/file">File</a></li>
+        </ul>
+    </div>
+</nav>
+<div style="position: absolute; top: 50%;">
+        <form action="/" method="post">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="input-group input-group-lg">
+                    <input name="level" value="0"  hidden id="level">
+                    <input name="sentence" type="text" class="form-control" placeholder="영어 문장을 입력해보세요!!!" aria-describedby="basic-addon2">
+                    <div class="input-group-btn">
+                        <button id="label" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Normal <span class="caret"></span></button>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                              <li><a href="#" onclick="setLevel(0)">Normal</a></li>
+                              <li><a href="#" onclick="setLevel(1)">Specific</a></li>
+                              <li><a href="#" onclick="setLevel(2)">More Specific</a></li>
+                            </ul>
+                        <button class="btn btn-default" type="submit">
+                            <i type="submit" class="glyphicon glyphicon-search "></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+</div>
+{% if res %}
+<div style="background: #ffffff88; position: absolute; top: 60%; height:30%; padding: 20px" class="col-md-8 col-md-offset-2">
+    {% for item in res %}
+    <span style="border-radius:25px; background: rgba({{ item.1 }}, {{ item.2 }}, {{ item.3 }}, 0.7); padding: 5px; font-size: 20px">{{ item.0 }}</span>
+    {% endfor %}
+</div>
+{% endif %}
+</body>
+</html>

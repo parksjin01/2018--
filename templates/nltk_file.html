@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <!-- 합쳐지고 최소화된 최신 CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+    <!-- 부가적인 테마 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+    <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <style>
+        button {
+             background:none!important;
+             color:inherit;
+             border:none;
+             padding:0!important;
+             font: inherit;
+             cursor: pointer;
+             display: inline;
+             text-align: left;
+             font-size: 20px;
+             padding: 5px;
+        }
+    </style>
+    <title>NLTK English grouping</title>
+</head>
+<body style="background-image: url( image/background.png ); no-repeat;">
+<nav class="navbar navbar-default navbar-fixed-top" style="background: #ffffff00; border-color:#ffffff00">
+    <div class="container" style="padding: 20px 0; background: #ffffff00; border-color:#ffffff00"">
+        <ul class="nav nav-pills">
+          <li role="presentation"><a href="/">Home</a></li>
+          <li role="presentation" class="active"><a href="/file">File</a></li>
+        </ul>
+    </div>
+</nav>
+<div style="width: 100%; position: absolute; top: 20%;">
+    <div class="col-md-offset-7">
+        <span class="label label-primary">파일 불러오기</span>
+        <input type="file" class="btn btn-primary" id="userFile" style="display: inline-block">
+    </div>
+</div>
+<div style="background: #ffffff88; position: absolute; top: 30%; height: 60%; overflow:scroll; padding: 20px" class="col-md-8 col-md-offset-2" id="txt">
+</div>
+<script>
+        var userfile = document.querySelector("#userFile");
+
+        userfile.onchange = function () {
+            var fileList = userfile.files ;
+
+
+            // 읽기
+            var reader = new FileReader();
+            reader.readAsText(fileList [0], "utf-8");
+
+            //로드 한 후
+            reader.onload = function  () {
+                var txt = reader.result.replace(/\n/gi, " ");
+                var txt = txt.split(".");
+                var tag = document.querySelector("#txt");
+                while (tag.firstChild) {
+                    tag.removeChild(tag.firstChild);
+                }
+                for (var i = 0; i < txt.length; i++) {
+                    if (txt[i] != "" && txt[i] != " ") {
+                        var btn = document.createElement("BUTTON");
+                        btn.id = i;
+                        var inText = document.createTextNode(txt[i].trim()+".");
+                        btn.onclick = function() {
+                            $.ajax({
+                              url: '/ajax/sentence',
+                              type: 'get',
+                              data: {
+                                sentence: this.innerHTML,
+                                id: this.id
+                              },
+                              dataType: 'text',
+                              success: function(response) {
+                                <!--// 성공 시 동작-->
+                                var result = JSON.parse(response);
+                                var sentence = result.sentence;
+                                var cur = document.getElementById(result.id);
+                                var res = document.createElement('div');
+                                cur.innerHTML = "";
+                                for(var i = 0; i<sentence.length; i++) {
+                                    var wordWrapper = document.createElement("SPAN");
+                                    var word = document.createTextNode(sentence[i][0].trim()+" ");
+                                    wordWrapper.setAttribute("style", "border-radius:25px; font-size: 20px; padding: 5px; background: rgba("+sentence[i][1]+","+sentence[i][2]+","+sentence[i][3]+", 0.7)");
+                                    wordWrapper.appendChild(word);
+                                    res.appendChild(wordWrapper);
+                                }
+                                cur.parentNode.replaceChild(res, cur);
+                              },
+                              fail: function(error) {
+                                <!--// 실패 시 동작-->
+                                alert("fail");
+                              },
+                              always: function(response) {
+                                alert("finally");
+                              }
+                            });
+                        }
+                        btn.appendChild(inText);
+                        tag.appendChild(btn);
+                    }
+
+                }
+            };
+        };
+    </script>
+</body>
+</html>
