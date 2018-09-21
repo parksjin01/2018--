@@ -1,16 +1,24 @@
-import inference.conditional_filter
+# -*- encoding:utf-8 -*-
 
-def precision_test():
+from nltk.parse import stanford
+import os
+from util.read_configuration import configuration
+from inference.conditional_filter import conditional_filter
+
+def precision_test(corpus_name):
+
+    config = configuration()
+
     parser = stanford.StanfordParser()
-    with open(corpus_name, "r") as f:
+    with open(config["corpus"] + "/" + corpus_name, "r") as f:
         data1 = f.read().split("\n")
 
-    with open("/Users/Knight/Desktop/졸업작품/Corpus/Relative_Clause_corpus.txt", "r") as f:
-        data2 = f.read().split("\n")
-    with open("/Users/Knight/Desktop/졸업작품/Corpus/Relative_Clause_corpus.txt", "r") as f:
-        data2 += f.read().split("\n")
-    with open("/Users/Knight/Desktop/졸업작품/Corpus/Relative_Clause_corpus.txt", "r") as f:
-        data2 += f.read().split("\n")
+    data2 = []
+    for name in os.listdir(config["corpus"]):
+        if name == corpus_name:
+            continue
+        with open(config["corpus"] + "/" + name) as f:
+            data2 += f.read().split("\n")
 
     wrong = 0
     correct = 0
@@ -32,3 +40,6 @@ def precision_test():
                     wrong += 1
 
     print str(int(float(correct)/(wrong + correct)*1000)/10.0)+"%"
+
+precision_test("IF_corpus.txt")
+print configuration()
