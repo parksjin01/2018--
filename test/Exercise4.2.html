@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercise 4.2</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("button").click(function() {
+                $("h1." + $(this).attr("class")).css("color", $("#color").val());
+            });
+        })
+    </script>
+</head>
+<body>
+<!--<h1 class="group1">Header 1</h1>-->
+<!--<h1 class="group2">Header 2</h1>-->
+<!--<h1 class="group3">Header 3</h1>-->
+<!--<form>-->
+    <!--<p>Choose the header color: <input type="color" id="color"></p>-->
+<!--</form>-->
+<!--<button type="button" class="group1">Change 1</button>-->
+<!--<button type="button" class="group2">Change 2</button>-->
+<!--<button type="button" class="group3">Change 3</button>-->
+<p>Hello world</p>
+</body>
+</html>

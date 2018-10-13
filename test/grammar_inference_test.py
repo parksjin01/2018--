@@ -84,7 +84,9 @@ def precision_test(corpus_name, grammar="conditional", precision=False):
     if precision:
         print str(int(float(correct)/(wrong + correct)*1000)/10.0) + "%"
 
-precision_test("Passive_Sentence_Corpus.txt", "passive")
+# precision_test("Passive_Sentence_Corpus.txt", "passive")
 # precision_test("Relative_Clause_corpus.txt", "relative")
 # precision_test("Present_Perfect_corpus.txt", "present_perfect")
+# precision_test("Gerund_Phrase_corpus.txt", "gerund")
+precision_test("To_Infinitive_corpus.txt", "infinitive")
 # print configuration()

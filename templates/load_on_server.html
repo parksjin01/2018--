@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Load file on server</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script>
+        var element;
+        $("document").ready(function() {
+            $(".word").mouseenter(function() {
+                $(this).css("color", "#5F00FF");
+            });
+            $(".word").mouseleave(function() {
+                $(this).css("color", "#000000");
+            });
+
+            $(".word").click(function() {
+                if (element !== undefined)
+                    element.popover('hide');
+                element = $(this)
+                $.ajax({
+                    url: "/ajax/word",
+                    type:"get",
+                    data:{
+                        word: $(this).text(),
+                    },
+                    dataType:"text",
+                    success:function(answer) {
+                        var result = JSON.parse(answer)
+                        element.popover({
+                            title: element.text(),
+                            content: result["text"],
+                            animation: true,
+                        });
+                        element.popover('show');
+                    },
+                });
+            });
+
+        });
+    </script>
+</head>
+<body>
+<form action="/upload" method="post" enctype="multipart/form-data">
+    <input type="file" name="file">
+    <button type="submit">Submit</button>
+</form>
+<div class="content">
+    {% if res.content %}
+    {{ res.content|safe }}
+    {% endif %}
+</div>
+</body>
+</html>

@@ -1,11 +1,11 @@
 # -*- encoding:utf-8 -*-
 
+import json
+
 def configuration():
-    with open("../configure.dat", "r") as f:
-        data = f.read().split()
-    config = {}
-    for item in data:
-        config[item.split("=")[0]] = item.split("=")[1]
+    with open("configure.dat", "r") as f:
+        data = f.read()
+    config = json.loads(data)
     return config
 
 print configuration()
