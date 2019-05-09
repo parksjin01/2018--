@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"  media="screen,projection"/>
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  </head>
+   <body>
+     <!--JavaScript at end of body for optimized loading-->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+   <div id="header" style="width: 1679px; height: 180px; text-align:center;">
+		<div id="main" style="float: left; width: 300px; height:180px">
+		</div>
+		<div id ="inform_login_out" style="float: right; width: 300px; height: 180px; text-align:right; padding:70px;">
+			<button type ="button" onclick="location.href='Login.html' ">Login</button>
+		</div>
+		<div id ="main_logo" style="width: 1080px; height:180px; margin: auto;">
+			<a href="Main.html"><img src="image/projectName.png" style="width:80%; height:100%;"></a>
+		</div>
+
+	</div>
+	<div id="login-page" class="row" style="position: absolute; top: 25%; left: 45%; margin: -50px 0 0 -50px;">
+	<div class="col s12 z-depth-4 card-panel" style="background: rgba(255, 255, 255, 0.7)"">
+		<form action="/login" method="POST" class="login-form">
+			<div class="row">
+				<div class="input-field col s12 center">
+					<h4>Login</h4>
+					<p class="center">Welcome to Reading Helper !</p>
+				</div>
+			</div>
+			<div class="row margin">
+				<div class="input-field col s12">
+					<!-- <i class="mdi-social-person-outline prefix"></i> -->
+					<i class="material-icons prefix">account_circle</i> <input
+						id="username" name="username" type="text" /> <label
+						for="username">Username</label>
+				</div>
+			</div>
+
+			<div class="row margin">
+				<div class="input-field col s12">
+					<!-- <i class="mdi-action-lock-outline prefix"></i> -->
+					<i class="material-icons prefix">vpn_key</i> <input id="password"
+						name="password" type="password" /> <label for="password">Password</label>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="input-field col s12">
+					<button type="submit" class="btn waves-effect waves-light col s12">Login</button>
+				</div>
+				<div class="input-field col s12">
+					<p class="margin center medium-small sign-up"> Can you join us ? <a href="./register">Register</a>
+					</p>
+				</div>
+            </div>
+	  	  </form>
+	  </div>
+    </div>
+  </body>
+</html>

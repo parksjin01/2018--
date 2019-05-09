@@ -3,54 +3,237 @@
 <head>
     <meta charset="UTF-8">
     <title>Load file on server</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    {% if res.header %}
+    {{ res.header|safe }}
+    {% endif %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>-->
+	<!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+	<!--<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>-->
+    <!--<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">-->
+    <!--<link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />-->
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">-->
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">-->
+
+    <script type="text/javascript" src="https://t1.daumcdn.net/tistory_admin/blogs/script/blog/common.js?_version_=0a716b818230ef23f8269519b29915469919874a"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<style>
+		.word {
+			font-size: 75px;
+		}
+	</style>
+    <!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>-->
         <script>
-        var element;
-        $("document").ready(function() {
-            $(".word").mouseenter(function() {
-                $(this).css("color", "#5F00FF");
-            });
-            $(".word").mouseleave(function() {
-                $(this).css("color", "#000000");
-            });
+            var fixation_threshold = 50; // ms 단위임
+            var start;
+            var end;
+            var element;
+            var element_tag;
+            var page = 0;
+            var prev_page = "page_0";
 
-            $(".word").click(function() {
-                if (element !== undefined)
-                    element.popover('hide');
-                element = $(this)
-                $.ajax({
-                    url: "/ajax/word",
-                    type:"get",
-                    data:{
-                        word: $(this).text(),
-                    },
-                    dataType:"text",
-                    success:function(answer) {
-                        var result = JSON.parse(answer)
-                        element.popover({
-                            title: element.text(),
-                            content: result["text"],
-                            animation: true,
-                        });
-                        element.popover('show');
-                    },
+            $("document").ready(function() {
+                <!--$("div").hide(0);-->
+                <!--$("#page_0").show(0);-->
+                $(".word").mouseenter(function() {
+                    $(this).css("color", "#5F00FF");
+                    start = new Date().getTime();
                 });
-            });
+                $(".word").mouseleave(function() {
+                    $(this).css("color", "#000000");
+                    element_tag = $(this);
+                    end = new Date().getTime();
+                    if (end - start > fixation_threshold){
+                        $.ajax({
+                            url: "/ajax/gaze_pattern",
+                            type: "POST",
+                            data:{
+                                word: $(this).text(),
+                                duration: end - start,
+                                start: start,
+                                end: end,
+                                class: $(this).attr("class")
+                            },
+                            success: function(data, status, xhr) {
+                                var response = JSON.parse(data)
+                                if (response["result"] == "true"){
+                                    if (response["type"] == "word"){
+                                         if (element_tag !== undefined)
+                                             element_tag.popover('hide');
+                                         element_tag = $(this)
+                                         $.ajax({
+                                             url: "/ajax/word",
+                                             type:"get",
+                                             data:{
+                                                 word: response["word"],
+                                             },
+                                             dataType:"text",
+                                             success:function(answer) {
+                                             	 <!--alert(answer);-->
+                                             	 var word = JSON.parse(answer);
+                                             	 for (var i = 0; i < word[0].length; i++)
+                                             	 	alert(word[0][i]);
+                                                 // element_tag.popover({
+                                                 //     title: element_tag.innerText,
+                                                 //     content: word[0][0],
+                                                 //     animation: true,
+                                                 //     html: true,
+                                                 // });
+												 //
+                                                 // element_tag.popover('show');
+                                                 // var result = JSON.parse(answer);
+                                             },
+                                         });
+										console.log(response["type"])
+                                    } else if (response["type"] == "sentence") {
+                                        alert(response["grammar"]);
+                                        alert(response["grouping"]);
+                                    }
+                                }
+                            }
 
-        });
-    </script>
+                        })
+                    }
+                });
+
+                // $(".word").click(function() {
+                //     if (element !== undefined)
+                //         element.popover('hide');
+                //     element = $(this)
+                //     $.ajax({
+                //         url: "/ajax/word",
+                //         type:"get",
+                //         data:{
+                //             word: $(this).text(),
+                //         },
+                //         dataType:"text",
+                //         success:function(answer) {
+                //             var result = JSON.parse(answer)
+                //             element.popover({
+                //                 title: element.text(),
+                //                 content: result["text"],
+                //                 animation: true,
+                //                 html: true,
+                //             });
+                //             element.popover('show');
+                //         },
+                //     });
+                // });
+
+                // $("button").click( function() {
+                //     if ($(this).attr("id") === "left")
+                //         page = Math.max(0, page - 1);
+                //     else if ($(this).attr("id") === "right")
+                //         page = Math.min(1, page + 1);
+                //     $("#show_page").text("Page: " + (page + 1));
+				//
+                //     document.getElementById(prev_page).hidden = true;
+                //     alert(page);
+                //     alert("page_" + page.toString());
+                //     document.getElementById("page_" + page.toString()).hidden = false;
+                //     prev_page = "page_" + page;
+                // });
+
+                $("#submiting").click(function () {
+					if ("{{ res.login }}" == "True") {
+					    alert("Login");
+                        $("#file_submit").submit();
+                    }
+					else
+						alert("먼저 로그인해주세요");
+                });
+
+            });
+        </script>
 </head>
 <body>
-<form action="/upload" method="post" enctype="multipart/form-data">
-    <input type="file" name="file">
-    <button type="submit">Submit</button>
-</form>
-<div class="content">
-    {% if res.content %}
-    {{ res.content|safe }}
-    {% endif %}
+<div class="container">
+    <!--<form action="/" method="post" enctype="multipart/form-data">-->
+        <!--<input type="file" name="file">-->
+        <!--<button type="submit">Submit</button>-->
+    <!--</form>-->
+    <!--<input id="page" value="0" hidden>-->
+    <!--<div class="content">-->
+        <!--{% if res.body %}-->
+        <!--{{ res.body|safe }}-->
+        <!--{% endif %}-->
+    <!--</div>-->
+    <!--<div class="col-md-offset-4 col-md-4" align="center">-->
+        <!--<button id="left" class="glyphicon glyphicon-chevron-left"></button><span id="show_page">Page: 1</span><button id="right" class="glyphicon glyphicon-chevron-right"></button>-->
+    <!--</div>-->
+
+	<div id="header" style="width: 1679px; height: 180px; text-align:center;">
+		<div id="main" style="float: left; width: 300px; height:180px">
+		</div>
+
+		<div id ="inform_login_out" style="float: right; width: 300px; height: 180px; text-align:right; padding:70px;">
+			{% if res.login == false %}
+				<button type ="button" onclick="location.href='/login' ">Login</button>
+			{% else %}
+				<button type ="button" onclick="location.href='/logout' ">Logout</button>
+			{% endif %}
+		</div>
+		<div id ="main_logo" style="width: 1080px; height:180px; margin: auto;">
+			<a href="/"><img src="image/projectName.png" style="width:80%; height:100%;"></a>
+		</div>
+
+	</div>
+	<div id="body" style="width: 1679px; height:180px; text-align:center;">
+		<div id="hard_word" style="float: left; width: 300px; text-align:center;">
+		<a data-toggle="collapse" href="#word"><img src="image/hardWord.png" style="width:60%;"></a>
+			<p><br><br></p>
+			<div id="word" class="collapse">
+				<div>
+					{% for word in res.word %}
+						<div>{{ word }}</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+		<div id="hard_grammar" style="float: right; width: 300px; text-align: center;">
+			<a data-toggle="collapse" href="#grammar"><img src="image/hardGrammar.png" style="width:60%;"></a>
+			<p><br><br></p>
+			<div id="grammar" class="collapse">
+				<div>
+					{% for grammar in res.grammar %}
+						<div>{{ grammar }}</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+		<div id="main_reader" style="width: 1080px; margin: auto;">
+			<img src="/image/mainReader.png" style="width:15%; height:48px;">
+			<div style="position: absolute; top: 50%; text-align:center;">
+                <form id="file_submit" action="/" method="post" enctype="multipart/form-data" class="form-inline">
+                    <div class="form-group">
+                        <input type="file" name="file" class="form-control">
+                    </div>
+                    <button id="submiting" class="btn btn-default" type="button">Submit</button>
+                            <!--<input name="level" value="0"  hidden id="level">-->
+                            <!--<input name="sentence" type="text" class="form-control" placeholder="영어 문장을 입력해보세요!!!" aria-describedby="basic-addon2">-->
+                            <!--<div class="input-group-btn">-->
+                                <!--<button id="label" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Normal <span class="caret"></span></button>-->
+                                    <!--<ul class="dropdown-menu dropdown-menu-right">-->
+                                      <!--<li><a href="#" onclick="setLevel(0)">Normal</a></li>-->
+                                      <!--<li><a href="#" onclick="setLevel(1)">Specific</a></li>-->
+                                      <!--<li><a href="#" onclick="setLevel(2)">More Specific</a></li>-->
+                                    <!--</ul>-->
+                                <!--<button class="btn btn-default" type="submit">-->
+                                    <!--<i type="submit" class="glyphicon glyphicon-search "></i>-->
+                                <!--</button>-->
+                            <!--</div>-->
+                </form>
+			</div>
+
+			<div class="content">
+						{% if res.body %}
+						{{ res.body|safe }}
+						{% endif %}
+			</div>
+		</div>
+	</div>
 </div>
 </body>
 </html>

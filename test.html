@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://github.com/RobinCK/vue-popper/blob/master/dist/css/vue-popper.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.19/vue.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/popper.min.js"></script>
+    <script src="https://unpkg.com/vue-popperjs"></script>
+    <style>
+        .top {
+            margin: 0 auto;
+            display: table;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <popper trigger="click" :options="{placement: 'bottom'}">
+        <div class="popper">
+            Popper Content
+        </div>
+
+        <a href="#" slot="reference" class="top">
+            Top
+        </a>
+    </popper>
+<script type="text/javascript">
+    new Vue({
+        el: '#app',
+        components: {
+            'popper': VuePopper
+        }
+    });
+</script>
+</body>
+</html>

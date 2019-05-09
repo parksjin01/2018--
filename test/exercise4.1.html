@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercise 4.1</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#p1").mouseenter(function() {
+                $("h1").text("Your choice: Chrome");
+            });
+
+            $("#p2").mouseenter(function() {
+                $("h1").text("Your choice: Internet Explorer");
+            });
+
+            $("#p3").mouseenter(function() {
+                $("h1").text("Your choice: Safari");
+            });
+
+            $("span").mouseleave(function() {
+                $("h1").text("Which is the web browser you prefer");
+            });
+        });
+    </script>
+</head>
+<body>
+<h1>Which is the web browser you prefer</h1>
+<p><span id="p1">(a) Chrome</span></p>
+<p><span id="p2">(b) Internet Explorer</span></p>
+<p><span id="p3">(c) Safari</span></p>
+</body>
+</html>

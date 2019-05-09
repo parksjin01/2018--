@@ -26,7 +26,8 @@ def grouping_clause(tree, pivot, res):
                         else:
                             res[-1].append(str(item).split("->")[1].strip().strip("'"))
                 start_idx = idx + 1
-                end = str(tree[idx + 1]).split("->")[1].strip().split(" ")[-1]
+                if idx < len(tree) - 1:
+                    end = str(tree[idx + 1]).split("->")[1].strip().split(" ")[-1]
     res.append([])
     for item in tree[start_idx:len(tree) + 1]:
         # print item

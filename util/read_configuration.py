@@ -7,5 +7,3 @@ def configuration():
         data = f.read()
     config = json.loads(data)
     return config
-
-print configuration()

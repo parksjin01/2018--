@@ -6,6 +6,7 @@ sys.setdefaultencoding('utf-8')
 import string
 import urllib2
 import BeautifulSoup
+import sqlite3
 
 def is_ascii(keyword):
     for char in keyword:
@@ -13,6 +14,23 @@ def is_ascii(keyword):
             return False
 
     return True
+
+def simple_word_dict(keyword):
+    con = sqlite3.connect("dictionary3.db")
+    cur = con.cursor()
+
+    cur.execute("SELECT korean FROM engtohan WHERE english='%s'" % keyword)
+    res = cur.fetchall()
+
+    cur.execute("SELECT * FROM engtohan;")
+    cur.fetchone()
+    cur.fetchmany(2)
+    cur.fetchall()
+
+    con.commit()
+    cur.close()
+    con.close()
+    return res
 
 def wikipedia_dict(keyword):
     info = {}
@@ -27,7 +45,7 @@ def wikipedia_dict(keyword):
     tmp = tmp[:min(3, len(tmp))]
     text = ""
     for item in tmp:
-        text += item.text + "\n"
+        text += "<p>" + item.text + "</p>"
     info["text"] = text
 
 
