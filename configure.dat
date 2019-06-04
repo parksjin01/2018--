@@ -1,2 +1,6 @@
-parser=/Users/Knight/Downloads/stanford-parser-full-2018-02-27
-corpus=/Users/Knight/Desktop/졸업작품/Corpus
+{
+    "parser":"/Users/Knight/Downloads/stanford-parser-full-2018-02-27",
+    "corpus":"/Users/Knight/Desktop/졸업작품/Corpus",
+    "upload_folder":"./upload",
+    "allowed_extensions":["txt", "doc", "docx", "pdf"]
+}

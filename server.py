@@ -5,103 +5,294 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 
 import os
-from flask import Flask
-from flask import request, url_for
-from flask import render_template, redirect, make_response
-from nltk.tree import Tree
 import pprint
 import json
-os.environ['CLASSPATH'] = os.environ['CLASSPATH']+"/Users/Knight/Downloads/stanford-parser-full-2018-02-27:"
 import nltk
 import random
+import sqlite3
+import time
 
-corpus_name = "/Users/Knight/Desktop/졸업작품/Corpus/IF_corpus.txt"
+from flask import Flask
+from flask import request, url_for, session
+from flask import render_template, redirect, make_response
+from nltk.tree import Tree
+from werkzeug import secure_filename
+
+from grouping.grouping_phrase import grouping_phrase
+from grouping.grouping_clause import grouping_clause
+from util.read_configuration import configuration
+from util.read_text import read_file
+from util.read_text import pdf2html
+from util.read_text import get_sentence
+from util.extract_image import extract_image
+from util.dictionary import wikipedia_dict, simple_word_dict
+from util.gaze_analyze import analyze
+from inference.conditional_filter import conditional_filter
+from inference.gerund_filter import gerund_filter
+from inference.to_infinitive_filter import infinitive_filter
+from inference.relative_filter import relative_filter
+from nltk.parse.corenlp import CoreNLPParser
+from shutil import copyfile
+
+os.environ['CLASSPATH'] += configuration()["parser"] + ":"
+
+path_to_jar = '‎/Users/Knight/Downloads/stanford-parser-full-2018-02-27/stanford-parser.jar'
+path_to_models_jar = '/Users/Knight/Downloads/stanford-parser-full-2018-02-27/stanford-parser-3.9.1-models.jar'
+
+os.environ["STANFORD_PARSER"] = path_to_jar
+os.environ["STANFORD_MODELS"] = path_to_models_jar
+os.environ["CLASSPATH"] += "/Users/Knight/Downloads/stanford-corenlp-full-2018-10-05/"
+
+stanford_parser = CoreNLPParser("http://localhost:9000")
 
 print os.environ['CLASSPATH']
 from nltk.parse import stanford
 print nltk.__version__
 
+upload_folder = configuration()["upload_folder"]
+allowed_extensions = configuration()["allowed_extensions"]
 app = Flask(__name__, static_url_path="/image", static_folder="image")
+app.config['UPLOAD_FOLDER'] = upload_folder
+app.secret_key = "graduationProject"
+DOCS = {}
 
 CLAUSE = 1
 
-# def traverse_tree(tree, n, res):
-#     if n == 0:
-#         res.append([' '.join(tree.leaves()), random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)])
-#         return
-#     for subtree in tree:
-#         print dir(subtree)
-#         print subtree
-#         if type(subtree) == nltk.tree.Tree:
-#             traverse_tree(subtree, n-1, res)
-#         else:
-#             print subtree
-#             res.append(
-#                 [subtree, random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)])
+def file_check(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1] in allowed_extensions
+
 
 def parsing(original_sentences, level, res):
     parser = stanford.StanfordParser()
     sentences = parser.raw_parse_sents((original_sentences, u''))
     for line in sentences:
         for sentence in line:
+            # print sentence
             # print sentence.productions()
             res = []
             result = []
-            grouping_phrase(sentence, "", res)
-            # grouping_clause(sentence.productions(), "SBAR", res)
-            print res
+            # grouping_phrase(sentence, "", res)
+            grouping_clause(sentence.productions(), "SBAR", res)
+            # print res
             for idx in range(len(res)):
                 result.append(" ".join(res[idx]))
             if "" in result:
                 result.remove("")
-            print original_sentences, "\n===>", " / ".join(result), "\n\n"
-            sentence.draw()
+            # print original_sentences, "\n===>", " / ".join(result), "\n\n"
+            # sentence.draw()
             # print dir(sentence)
             # traverse_tree(sentence, 2 + level, res)
 
-# @app.route("/", methods=["GET", "POST"])
-# def home():
-#     if request.method == "GET":
-#         return render_template("nltk_home.html")
-#     elif request.method == "POST":
-#         sentence = request.form['sentence']
-#         level = request.form['level']
-#         res = []
-#         parsing(sentence, int(level), res)
-#         return render_template("nltk_home.html", res=res)
-#
-# @app.route("/file", methods=["GET"])
-# def read_file():
-#     return render_template("nltk_file.html")
-#
-# @app.route("/ajax/sentence")
-# def json_response():
-#     res = []
-#     parsing(request.args.get("sentence"), 0, res)
-#     return json.dumps({'success': True, 'status':'OK', 'sentence':res, 'id':request.args.get("id")}), 200, {'ContentType': 'application/json'}
-#
-# if __name__ == '__main__':
-#     app.run()
-res = []
-parsing("After shaping the entire course of modern art, Cezanne died thinking that he was a failure.", 0, res)
-parsing("His pleasure, listening to the music of The Beatles at full volume, caused quite a stirring among his neighbors at 3:00 a.m.", 0, res)
-parsing("His filming of The Magnificent Seven was, in my opinion, Kurosawa’s greatest achievement as a film director.", 0, res)
-parsing("After having been reprimanded for smoking in the hall, the thoughtless student started chewing tobacco.", 0, res)
-parsing("Subscribing to the Boca Raton News was the first step in moving to that distant tropical area.", 0, res)
-parsing("Sneezing for 2000 days straight is not a desirable record to set.", 0, res)
-parsing("Upon discovering that she had been accepted by Coliseum College, Melissa let her hair grow very long and began to wear leotards.", 0, res)
-parsing("The signing of the Declaration of Independence was one of the single most decisive acts in Western Civilization.", 0, res)
-parsing("Eating strawberries without washing them might make you sick.", 0, res)
-parsing("After having lost their twelfth straight game, the Erstwhiles sat glumly in their locker room.", 0, res)
-parsing("Being seen in the Casbah with Pepe Le Moko proved to be a most unfortunate incident the young diplomat’s career.", 0, res)
-# parsing("This is the area which they are fighting for.", 0, res)
-# parsing("What would have happened if I hadn't checked the room?", 0, res)
-# parsing("If I were rich, I could buy the big house", 0, res)
-# parsing("If he were poor, he could not have donated 10 million dollars to the Salvation Army last month.", 0, res)
-# parsing("If he or she were an American, he or she would not use that expression.", 0, res)
-# parsing("If exclusive bus lanes hadn't been made, there would have been a huge traffic jam every morning.", 0, res)
-# parsing("What is worse is that some of us don't even know that Christmas is the celebration of the birth of Christ.", 0, res)
-# parsing("A person whose job is to handle human relations can describe their job performances clearly.", 0, res)
-# parsing("What really impressed me about her was work, as I think is something some of us have lost sight of.", 0, res)
-# parsing("What is worse is that some of us don't even know that Christmas is the celebration of the birth of Christ.", 0, res)
-# precision_test()
+@app.route("/ajax/word")
+def word_dict():
+    # print json.dumps(wikipedia_dict(request.args.get("word")))
+    try:
+        w = request.args.get("word")
+        w = w.lower().replace(";", "").replace("'", "").replace('"', "").replace(".", "").replace(",", "")
+        res = simple_word_dict(w)
+        # if res == []:
+        #     res = wikipedia_dict(request.args.get("word"))
+        return json.dumps(res).encode('utf-8')
+    except:
+        return json.dumps({"text":"No data"})
+
+@app.route("/ajax/gaze_pattern", methods=["GET", "POST"])
+def gaze_pattern():
+    word_search_threshold = 2500
+    session["word"].append(request.form.get("word"))
+    session["duration"].append(request.form.get("duration"))
+    session["start"].append(request.form.get("start"))
+    session["end"].append(request.form.get("end"))
+    session["class"].append(request.form.get("class").split(" ")[-1])
+    with open(session["filename"]+".json", 'wt') as f:
+        f.write(json.dumps({"word":session["word"], "duration":session["duration"], "start":session["start"], "end":session["end"], "class": session["class"]}))
+    # print session["sentences"]
+
+    session["word"], session["duration"], session["start"], session["end"], session["class"] = analyze(session["word"], session["duration"], session["start"], session["end"], session["class"], DOCS[request.remote_addr])
+    if len(session["duration"]) > 0:
+        if int(session["duration"][-1]) > word_search_threshold:
+            conn = sqlite3.connect("ReadHelper.db")
+            c = conn.cursor()
+            # print type(session["userid"]), session["word"][-1], time.time()
+            sql = "insert into hardWord (userId, word, time) values (?, ?, ?)"
+            c.execute(sql, ( session["userid"], session["word"][-1], time.time(), ))
+            conn.commit()
+            conn.close()
+            return '{"result":"true", "type":"word", "grammar":"", "word":"%s"}' %(session["word"][-1])
+        else:
+            return '{"result": "false"}'
+    else:
+        grammar = ""
+        current_time = time.time()
+        conn = sqlite3.connect("ReadHelper.db")
+        c = conn.cursor()
+        sql = "insert into hardGrammar (userId, grammar, time) values (?, ?, ?)"
+
+        idx = int(request.form.get("class").split(" ")[-1])
+        sentence = get_sentence(idx, DOCS[request.remote_addr])
+
+        # print idx, DOCS[request.remote_addr], sentence
+        # parser = stanford.StanfordParser()
+        # parsed_sentence = parser.raw_parse_sents((sentence, u''))
+        s = stanford_parser.parse((sentence, u"")).next()
+        s_p = s.productions()
+
+        # print s.productions()
+
+        inference = conditional_filter(s_p)
+        if inference == True:
+            c.execute(sql, (session["userid"], "conditional", time.time()))
+            grammar += "conditional "
+
+        inference = gerund_filter(s_p)
+        if inference == True:
+            c.execute(sql, (session["userid"], "gerund", time.time()))
+            grammar += "greund "
+
+        inference = infinitive_filter(s_p)
+        if inference == True:
+            c.execute(sql, (session["userid"], "infinitive", time.time()))
+            grammar += "infinitive "
+
+        inference = relative_filter(s_p)
+        if inference == True:
+            c.execute(sql, (session["userid"], "relative", time.time()))
+            grammar += "relative "
+
+        grammar.strip(" ")
+        conn.commit()
+        conn.close()
+
+        g_clause = []
+        g_phrase = []
+        # parser = stanford.StanfordParser()
+        # sentences = parser.raw_parse_sents((sentence, u''))
+        # for line in sentences:
+        #     for sentence in line:
+        #         # print sentence.productions()
+        #         result = []
+        grouping_phrase(s, "", g_phrase)
+        grouping_clause(s_p, "SBAR", g_clause)
+        clause = []
+        phrase = []
+        for group in g_clause:
+            clause.append(" ".join(group))
+        for group in g_phrase:
+            phrase.append(" ".join(group))
+        return '{"result": "true", "type":"sentence", "grammar":"%s", "grouping":"CLAUSE: %sPHRASE: %s"}' %(grammar, "/".join(clause), "/".join(phrase))
+
+@app.route("/upload/<filename>")
+def load_processed_file(filename):
+    print filename
+    copyfile("upload/" + filename, "templates/" + filename)
+    with open("templates/" + filename) as f:
+        data = f.read()
+
+    print "-" * 30
+    print data
+    return data
+
+
+@app.route("/", methods=["GET", "POST"])
+def upload_file():
+    login = "userid" in session
+    hardWord = {}
+    hardGrammar = {}
+    if request.method == 'POST':
+        session["word"] = []
+        session["duration"] = []
+        session["start"] = []
+        session["end"] = []
+        session["class"] = []
+
+        file = request.files['file']
+        if file and file_check(file.filename):
+            filename = secure_filename(file.filename)
+            session["filename"] = filename
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            content, pages, DOCS[request.remote_addr] = pdf2html(os.path.join(app.config['UPLOAD_FOLDER'], filename)[2:])
+            result_name = os.path.join(app.config['UPLOAD_FOLDER'], filename)[2:][:-4]
+            return render_template("load_on_server.html", res={'login': login, 'header': content['header'], 'body':content['body'], 'pages':pages, "login": login, "link": "http://127.0.0.1:5000/" + result_name + ".html"})
+    if login:
+        conn = sqlite3.connect("ReadHelper.db")
+        c = conn.cursor()
+        search_word_query = "select * from hardWord where userid=?"
+        search_grammar_query = "select * from hardGrammar where userid=?"
+        c.execute(search_word_query, (session["userid"],))
+        result = c.fetchall()
+        for column in result:
+            try:
+                hardWord[column[1]] += 1
+            except:
+                hardWord[column[1]] = 1
+
+        c.execute(search_grammar_query, (session["userid"],))
+        result = c.fetchall()
+        for column in result:
+            try:
+                hardGrammar[column[1]] += 1
+            except:
+                hardGrammar[column[1]] = 1
+
+        hardWord = sorted(hardWord.iteritems(), key=lambda (k, v): (v, k))
+        hardGrammar = sorted(hardGrammar.iteritems(), key=lambda  (k, v): (v, k))
+
+        hardWord.reverse()
+        hardGrammar.reverse()
+
+        hardWord = ['<div class="dropdown-content">' + k[0] + '</div>' for k in hardWord[:10]]
+        hardGrammar = ['<div class="dropdown-content">' + k[0] + '</div>' for k in hardGrammar[:10]]
+
+        # print hardWord
+        # print hardGrammar
+
+    return render_template("load_on_server.html", res={"login": login, "word": hardWord, "grammar": hardGrammar})
+
+@app.route("/word", methods=["GET"])
+def word():
+    return render_template("word_search.html")
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        conn = sqlite3.connect("ReadHelper.db")
+        c = conn.cursor()
+        sql = "select * from userInfo where userId=? and userPw=?"
+        userid = request.form.get("username")
+        userpw = request.form.get("password")
+        c.execute(sql, (userid, userpw))
+        result = c.fetchall()
+        conn.close()
+        if len(result) > 0:
+            print "Login successed"
+            session["userid"] = userid
+            pass
+        return redirect("/")
+    return render_template("Login.html")
+
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    if request.method == "POST":
+        conn = sqlite3.connect("ReadHelper.db")
+        c = conn.cursor()
+        sql = "insert into userInfo (userId, email, userPw) values (?, ?, ?)"
+        userid = request.form.get("username")
+        email = request.form.get("email")
+        userpw = request.form.get("password")
+        userrepw = request.form.get("cpassword")
+        print userpw, userrepw
+        if userpw == userrepw:
+            c.execute(sql, (userid, email, userpw))
+            conn.commit()
+        conn.close()
+        return redirect("/")
+    return render_template("Register.html")
+
+@app.route("/logout")
+def logout():
+    session.pop("userid", None)
+    return redirect("/")
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', debug=True)
+    # parsing("I have a dream", "", "")

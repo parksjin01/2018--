@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"  media="screen,projection"/>
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	  <link href="https://fonts.googleapis.com/css?family=Pathway+Gothic+One" rel="stylesheet">
+
+
+	  	<!--Particle CSS and JS-->
+	  <script src="http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+	<style>
+		canvas{display: none; vertical-align: bottom; }
+		canvas.particles-js-canvas-el { display: block; position: absolute; top: 0px; left: 0px; z-index: -9999; }
+
+		/* ---- particles.js container ---- */
+		#particles-js{ position:absolute; width: 100%; height: 100%; background-color: #ffffff; background-repeat: no-repeat; background-size: 20%; background-position: 50% 50%; }
+
+	</style>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/particlesjs/2.2.3/particles.js"></script>
+  </head>
+
+
+   <body id="particles-js">
+     <!--JavaScript at end of body for optimized loading-->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+   <div id="header" style="width: 100%; height: 180px; text-align:center;">
+		<div id="main" style="float: left; width: 10%; height:180px">
+		</div>
+		<div id ="inform_login_out" style="float: right; width: 10%; height: 180px; text-align:right; padding:70px;">
+			<button type ="button" onclick="location.href='Login.html' ">Login</button>
+		</div>
+		<div id ="main_logo" style="width: 1080px; height:180px; margin: auto;">
+			<a href="Main.html" style="text-decoration:none; color:black;">
+				<div style="width:100%; height:180px; font-size:112px; font-family: 'Pathway Gothic One', sans-serif;">Reading Helper</div>
+			</a>
+		</div>
+
+	</div>
+	<div id="login-page" class="row" style="position: absolute; top: 25%; left: 45%; margin: -50px 0 0 -50px;">
+	<div class="col s12 z-depth-4 card-panel" style="background: rgba(255, 255, 255, 0.7)"">
+		<form action="/login" method="POST" class="login-form">
+			<div class="row">
+				<div class="input-field col s12 center">
+					<h4>Login</h4>
+					<p class="center">Welcome to Reading Helper !</p>
+				</div>
+			</div>
+			<div class="row margin">
+				<div class="input-field col s12">
+					<!-- <i class="mdi-social-person-outline prefix"></i> -->
+					<i class="material-icons prefix">account_circle</i> <input
+						id="username" name="username" type="text" /> <label
+						for="username">Username</label>
+				</div>
+			</div>
+
+			<div class="row margin">
+				<div class="input-field col s12">
+					<!-- <i class="mdi-action-lock-outline prefix"></i> -->
+					<i class="material-icons prefix">vpn_key</i> <input id="password"
+						name="password" type="password" /> <label for="password">Password</label>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="input-field col s12">
+					<button type="submit" class="btn waves-effect waves-light col s12">Login</button>
+				</div>
+				<div class="input-field col s12">
+					<p class="margin center medium-small sign-up"> Can you join us ? <a href="./register">Register</a>
+					</p>
+				</div>
+            </div>
+	  	  </form>
+	  </div>
+    </div>
+
+   <!--Particles gen-->
+	<script>
+		particlesJS("particles-js", {"particles":{"number":{"value":160,"density":{"enable":true,"value_area":800}},"color":{"value":"#000000"},"shape":{"type":"circle","stroke":{"width":0,"color":"#000000"},"polygon":{"nb_sides":5},"image":{"src":"img/github.svg","width":100,"height":100}},"opacity":{"value":1,"random":true,"anim":{"enable":true,"speed":1,"opacity_min":0,"sync":false}},"size":{"value":3,"random":true,"anim":{"enable":false,"speed":4,"size_min":0.3,"sync":false}},"line_linked":{"enable":false,"distance":150,"color":"#ffffff","opacity":0.4,"width":1},"move":{"enable":true,"speed":1,"direction":"none","random":true,"straight":false,"out_mode":"out","bounce":false,"attract":{"enable":false,"rotateX":600,"rotateY":600}}},"interactivity":{"events":{"onhover":{"enable":true,"mode":"bubble"},"onclick":{"enable":true,"mode":"repulse"},"resize":true},"modes":{"grab":{"distance":400,"line_linked":{"opacity":1}},"bubble":{"distance":250,"size":0,"duration":2,"opacity":0,"speed":3},"repulse":{"distance":400,"duration":0.4},"push":{"particles_nb":4},"remove":{"particles_nb":2}}},"retina_detect":true});
+		var count_particles, stats, update;
+
+		count_particles = document.querySelector('.js-count-particles');
+	</script>
+  </body>
+</html>

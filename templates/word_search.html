@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script>
+        var element;
+        $("document").ready(function() {
+            $("span").mouseenter(function() {
+                $(this).css("color", "#5F00FF");
+            });
+            $("span").mouseleave(function() {
+                $(this).css("color", "#000000");
+            });
+
+            $("span").click(function() {
+                if (element !== undefined)
+                    element.popover('hide');
+                element = $(this)
+                $.ajax({
+                    url: "/ajax/word",
+                    type:"get",
+                    data:{
+                        word: $(this).text(),
+                    },
+                    dataType:"text",
+                    success:function(answer) {
+                        var result = JSON.parse(answer)
+                        element.popover({
+                            title: element.text(),
+                            content: result["text"],
+                            animation: true,
+                        });
+                        element.popover('show');
+                    },
+                });
+            });
+
+        });
+    </script>
+</head>
+<body>
+<p>
+    <span>It</span> <span>should</span> <span>be</span> <span>clear</span> <span>that</span>, <span>given</span> <span>the</span> <span>structure</span> <span>of</span> <span>the</span> <span>measurements</span>, <span>we</span> <span>can</span> <span>create</span> <span>a</span> <span>beam</span> <span>that</span> <span>points</span> <span>in</span> <span>one</span> <span>direction</span>, <span>s</span>, <span>by</span> <span>setting</span> <span>a</span> <span>to</span> <span>the</span> <span>s-th</span> <span>row</span> <span>in</span> <span>the</span> <span>Fourier</span> <span>matrix</span>.
+</p>
+</body>
+</html>

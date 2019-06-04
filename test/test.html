@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercise 9.1</title>
+</head>
+<body>
+<h1 align="center">Search Front-end</h1>
+<p align="center">choose a search engine and enter query keywords</p>
+<div align="center">
+    <form method="get" action="http://127.0.0.1:8080/myServlet/redirect">
+        <select name="engine">
+            <option value="Naver">Naver</option>
+            <option value="Daum">Daum</option>
+            <option value="Google">Google</option>
+            <option value="Yahoo">Yahoo</option>
+            <option value="Bing">Bing</option>
+        </select>
+        <input type="text" name="query">
+        <div align="center">
+            <button type="submit">Search</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>
