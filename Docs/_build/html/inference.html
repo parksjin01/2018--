@@ -1,0 +1,317 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Inference &mdash; ReadingHelper(Graduation-Project) 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Utility" href="util.html" />
+    <link rel="prev" title="Grouping" href="grouping.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> ReadingHelper(Graduation-Project)
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="grouping.html">Grouping</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Inference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#conditional">Conditional</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gerund">Gerund</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#passive">Passive</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#present-perfect">Present-Perfect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#relative">Relative</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#infinitive">Infinitive</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="util.html">Utility</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ReadingHelper(Graduation-Project)</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Inference</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/inference.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-inference">
+<span id="inference"></span><h1>Inference<a class="headerlink" href="#module-inference" title="Permalink to this headline">¶</a></h1>
+<p>Modules</p>
+<hr class="docutils" />
+<span class="target" id="module-inference.conditional_filter"></span><div class="section" id="conditional">
+<h2>Conditional<a class="headerlink" href="#conditional" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="inference.conditional_filter.conditional_filter">
+<code class="sig-prename descclassname">inference.conditional_filter.</code><code class="sig-name descname">conditional_filter</code><span class="sig-paren">(</span><em class="sig-param">tree</em><span class="sig-paren">)</span><a class="headerlink" href="#inference.conditional_filter.conditional_filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Infer conditional grammar is used or not</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>tree</strong> – Paresed dependency tree of sentence</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True (Conditional grammar is used in sentence) / False (Conditional grammar is not used in sentence)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<span class="target" id="module-inference.gerund_filter"></span><div class="section" id="gerund">
+<h2>Gerund<a class="headerlink" href="#gerund" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="inference.gerund_filter.gerund_filter">
+<code class="sig-prename descclassname">inference.gerund_filter.</code><code class="sig-name descname">gerund_filter</code><span class="sig-paren">(</span><em class="sig-param">tree</em><span class="sig-paren">)</span><a class="headerlink" href="#inference.gerund_filter.gerund_filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Infer gerund grammar is used or not in the sentence</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>tree</strong> – Paresed dependency tree of sentence</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True (Gerund grammar is used in sentence) / False (Gerund grammar is not used in sentence)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<span class="target" id="module-inference.passive_filter"></span><div class="section" id="passive">
+<h2>Passive<a class="headerlink" href="#passive" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="inference.passive_filter.passive_filter">
+<code class="sig-prename descclassname">inference.passive_filter.</code><code class="sig-name descname">passive_filter</code><span class="sig-paren">(</span><em class="sig-param">tree</em><span class="sig-paren">)</span><a class="headerlink" href="#inference.passive_filter.passive_filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Infer passive grammar is used in this sentence or not</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>tree</strong> – Paresed dependency tree of sentence</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True (Passive grammar is used in sentence) / False (Passive grammar is not used in sentence)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<span class="target" id="module-inference.present_perfect_filter"></span><div class="section" id="present-perfect">
+<h2>Present-Perfect<a class="headerlink" href="#present-perfect" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="inference.present_perfect_filter.present_perfect_filter">
+<code class="sig-prename descclassname">inference.present_perfect_filter.</code><code class="sig-name descname">present_perfect_filter</code><span class="sig-paren">(</span><em class="sig-param">tree</em><span class="sig-paren">)</span><a class="headerlink" href="#inference.present_perfect_filter.present_perfect_filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Infer present-perfect is used in sentence or not</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>tree</strong> – Paresed dependency tree of sentence</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True (Present-Perfect grammar is used in sentence) / False (Present-Perfect grammar is not used in sentence)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<span class="target" id="module-inference.relative_filter"></span><div class="section" id="relative">
+<h2>Relative<a class="headerlink" href="#relative" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="inference.relative_filter.relative_filter">
+<code class="sig-prename descclassname">inference.relative_filter.</code><code class="sig-name descname">relative_filter</code><span class="sig-paren">(</span><em class="sig-param">tree</em><span class="sig-paren">)</span><a class="headerlink" href="#inference.relative_filter.relative_filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Infer relative grammar is used in this sentence or not</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>tree</strong> – Paresed dependency tree of sentence</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True (Relative grammar is used in sentence) / False (Relative grammar is not used in sentence)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<span class="target" id="module-inference.to_infinitive_filter"></span><div class="section" id="infinitive">
+<h2>Infinitive<a class="headerlink" href="#infinitive" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="inference.to_infinitive_filter.infinitive_filter">
+<code class="sig-prename descclassname">inference.to_infinitive_filter.</code><code class="sig-name descname">infinitive_filter</code><span class="sig-paren">(</span><em class="sig-param">tree</em><span class="sig-paren">)</span><a class="headerlink" href="#inference.to_infinitive_filter.infinitive_filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Infer infinitive grammar is used in this sentence or not</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>tree</strong> – Paresed dependency tree of sentence</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True (Infinitive grammar is used in sentence) / False (Infinitive grammar is not used in sentence)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="util.html" class="btn btn-neutral float-right" title="Utility" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="grouping.html" class="btn btn-neutral float-left" title="Grouping" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, SeongJin
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

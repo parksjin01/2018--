@@ -1,4 +1,16 @@
+"""
+    Gerund
+    ~~~~~~
+"""
+
 def gerund_filter(tree):
+    """
+    Infer gerund grammar is used or not in the sentence
+
+    :param tree: Paresed dependency tree of sentence
+    :return: True (Gerund grammar is used in sentence) / False (Gerund grammar is not used in sentence)
+    """
+
     # print tree
     for idx in range(len(tree)):
         if "VBG" in str(tree[idx]).split("->")[1].strip():

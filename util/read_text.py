@@ -1,52 +1,85 @@
+"""
+    pdf2html
+    ~~~~~~~~~~~~~~~~~~~
+"""
+
 # -*-encoding: utf-8 -*-
 
-import sys
-reload(sys)
-sys.setdefaultencoding('utf-8')
+try:
+    import sys
+    reload(sys)
+    sys.setdefaultencoding('utf-8')
 
-import textract
-import PyPDF2
-import shutil
-import subprocess
-import BeautifulSoup
-import io
-import re
+    import textract
+    import PyPDF2
+    import shutil
+    import subprocess
+    import BeautifulSoup
+    import io
+    import re
+except:
+    pass
 
 def is_ascii(word):
+    """
+    Check non-ascii character is included in word or not
+
+    :param word: Work to check non-ascii character
+    :return: True (Only ascii is included) / False (Non-ascii character is included)
+    """
     for char in word:
         if ord(char) < 0x20 or ord(char) > 0x7e:
             return False
     return True
 
 def mapping(text):
+    """
+    Replace special character in text.
+
+    :param text: String to process
+    :return: Processed string
+    """
     regex = "(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?)\s"
     regex = re.compile(regex)
     text = regex.split(text)
     return text
 
 
-def read_file(file_path):
-    print file_path
-    res = ""
-    # try:
-    reader = PyPDF2.PdfFileReader(open(file_path, "rb"))
-    for num in range(reader.getNumPages())[:1]:
-        print reader.getPage(num).extractText()
-            # writer = PyPDF2.PdfFileWriter()
-            # writer.addPage(reader.getPage(num))
-            # with open("./upload/tmp.pdf", "wb") as f:
-            #     writer.write(f)
-            # if num > 0:
-            #     res += '<div id="page_' + str(num) + '" hidden>' + spaning(textract.process("./upload/tmp.pdf")) + '</div>'
-            # else:
-            #     res += '<div id="page_' + str(num) + '">' + spaning(textract.process("./upload/tmp.pdf")) + '</div>'
-        # print type(res)
-        # return res, reader.getNumPages()
-    # except:
-    #     res = '<div id="page_' + str(0) + '">' + spaning(textract.process('./' + file_path)) + '</div>'
-    #     return res, 0
+# def read_file(file_path):
+#     """
+#     Deprecated
+#
+#     :param file_path:
+#     :return:
+#     """
+#     print (file_path)
+#     res = ""
+#     # try:
+#     reader = PyPDF2.PdfFileReader(open(file_path, "rb"))
+#     for num in range(reader.getNumPages())[:1]:
+#         # print reader.getPage(num).extractText()
+#             # writer = PyPDF2.PdfFileWriter()
+#             # writer.addPage(reader.getPage(num))
+#             # with open("./upload/tmp.pdf", "wb") as f:
+#             #     writer.write(f)
+#             # if num > 0:
+#             #     res += '<div id="page_' + str(num) + '" hidden>' + spaning(textract.process("./upload/tmp.pdf")) + '</div>'
+#             # else:
+#             #     res += '<div id="page_' + str(num) + '">' + spaning(textract.process("./upload/tmp.pdf")) + '</div>'
+#         # print type(res)
+#         # return res, reader.getNumPages()
+#     # except:
+#     #     res = '<div id="page_' + str(0) + '">' + spaning(textract.process('./' + file_path)) + '</div>'
+#     #     return res, 0
 
 def words2sentence(sentence):
+    """
+    Deprecated
+
+    :param sentence: Sentence to convert
+    :return: list of word
+    """
+
     res = {}
     regex = "(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?)\s"
     regex = re.compile(regex)
@@ -66,6 +99,20 @@ def get_sentence(idx, sentence_dict):
             return sentence_dict[i]
 
 def spaning(html, word_idx, sentence):
+    """
+    Spannning the word in html. Surround "<span>" tag around the word.
+    Mark the index in span class.
+    Also spanning the sentence in html. Surround "<span>" tag around the sentence.
+    Mark the index in span class.
+    Word index and sentence index is used to identify hard word and sentence.
+    Do it recursively until all word and sentence is spanned
+
+    :param html: HTML data converted from PDF
+    :param word_idx: Counter of word index
+    :param sentence: Current sentence to tag
+    :return: None
+    """
+
     # sentence_idx = -1
     html = str(html)
     # print html
@@ -82,7 +129,7 @@ def spaning(html, word_idx, sentence):
             a, plain_text = plain_text.split(str(pivot), 1)
             words.append(a.strip().split())
         except:
-            print "[ERROR]:", plain_text, pivot
+            print ("[ERROR]:", plain_text, pivot)
     words.append(plain_text.strip().split())
     # words_to_sentence, text_idx = words2sentence(words, pdf_text, text_idx)
     # print words
@@ -139,6 +186,13 @@ def spaning(html, word_idx, sentence):
     return soup, word_idx, sentence
 
 def pdf2html(filename):
+    """
+    Convert pdf file to html file using pdf2htmlex program.
+    pdf2htmlex is runned using docker and python run it with shell command
+
+    :param filename: Filename of pdf to convert
+    :return: HTML document content
+    """
     sentence = []
     sentence_idx = 0
     word_idx = 0
@@ -174,7 +228,7 @@ def pdf2html(filename):
                             for idx in range(len(tags)):
                                 if tags[idx].name == "div":
                                     if "today" in tags[idx].text:
-                                        print repr(tags[idx].text)
+                                        print (repr(tags[idx].text))
                                     tags[idx], word_idx, sentence = spaning(tags[idx], word_idx, sentence)
                                 sub_div[j].append(tags[idx])
                         div[i].append(sub_div[j])
@@ -184,7 +238,7 @@ def pdf2html(filename):
             processed_body.append(line)
     f.close()
     sentence_dict = words2sentence(sentence)
-    print sentence_dict
+    print (sentence_dict)
     return {"body":'\n'.join(processed_body), "header":header}, 1, sentence_dict
 # pdf2html("../upload/p432-hassanieh.pdf")
 # read_file("/Users/Knight/PycharmProjects/2018-Graduation-Project/upload/p432-hassanieh.pdf")

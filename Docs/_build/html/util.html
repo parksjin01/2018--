@@ -1,0 +1,416 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Utility &mdash; ReadingHelper(Graduation-Project) 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Inference" href="inference.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> ReadingHelper(Graduation-Project)
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="grouping.html">Grouping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inference.html">Inference</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Utility</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#cread-word-database">Cread Word Database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dictionary">Dictionary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gaze-analyze">Gaze Analyze</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#read-configuration">Read Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pdf2html">pdf2html</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ReadingHelper(Graduation-Project)</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Utility</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/util.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-util">
+<span id="utility"></span><h1>Utility<a class="headerlink" href="#module-util" title="Permalink to this headline">¶</a></h1>
+<p>Modules</p>
+<hr class="docutils" />
+<span class="target" id="module-util.create_DB"></span><div class="section" id="cread-word-database">
+<h2>Cread Word Database<a class="headerlink" href="#cread-word-database" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="util.create_DB.createTable">
+<code class="sig-prename descclassname">util.create_DB.</code><code class="sig-name descname">createTable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#util.create_DB.createTable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert text word information such as meaning into sqlite3 database</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="util.create_DB.makeDir">
+<code class="sig-prename descclassname">util.create_DB.</code><code class="sig-name descname">makeDir</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#util.create_DB.makeDir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check target directory is exist or not
+If target dicrectory is not exist, create target directory</p>
+</dd></dl>
+
+</div>
+<span class="target" id="module-util.dictionary"></span><div class="section" id="dictionary">
+<h2>Dictionary<a class="headerlink" href="#dictionary" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="util.dictionary.is_ascii">
+<code class="sig-prename descclassname">util.dictionary.</code><code class="sig-name descname">is_ascii</code><span class="sig-paren">(</span><em class="sig-param">keyword</em><span class="sig-paren">)</span><a class="headerlink" href="#util.dictionary.is_ascii" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check special character such as !&#64;#$ and number is included in word or not</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>keyword</strong> – Word to search</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True (Word contain only ascii character) / False (Special character or number is included in word)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="util.dictionary.simple_word_dict">
+<code class="sig-prename descclassname">util.dictionary.</code><code class="sig-name descname">simple_word_dict</code><span class="sig-paren">(</span><em class="sig-param">keyword</em><span class="sig-paren">)</span><a class="headerlink" href="#util.dictionary.simple_word_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search the meaning of word in database</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>keyword</strong> – Word to search</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Meaning of word. If word is not in database, return null</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="util.dictionary.wikipedia_dict">
+<code class="sig-prename descclassname">util.dictionary.</code><code class="sig-name descname">wikipedia_dict</code><span class="sig-paren">(</span><em class="sig-param">keyword</em><span class="sig-paren">)</span><a class="headerlink" href="#util.dictionary.wikipedia_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search the meaning of word which can’t find the meaning in database</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>keyword</strong> – Word to search</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Information related to word</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<span class="target" id="module-util.gaze_analyze"></span><div class="section" id="gaze-analyze">
+<h2>Gaze Analyze<a class="headerlink" href="#gaze-analyze" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="util.gaze_analyze.analyze">
+<code class="sig-prename descclassname">util.gaze_analyze.</code><code class="sig-name descname">analyze</code><span class="sig-paren">(</span><em class="sig-param">word</em>, <em class="sig-param">duration</em>, <em class="sig-param">start</em>, <em class="sig-param">end</em>, <em class="sig-param">word_idx</em>, <em class="sig-param">sentences</em><span class="sig-paren">)</span><a class="headerlink" href="#util.gaze_analyze.analyze" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get information of gaze collected by using eye-tracker.
+Processing information to call calculate-impaction function.
+If impaction is larger than threshold, clear word, duration, start, end list
+It means user feel difficult to read this picture.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>word</strong> – Recently read word</p></li>
+<li><p><strong>duration</strong> – Fixation time of each word in word list</p></li>
+<li><p><strong>start</strong> – Starting word index in gaze information (e.g. Saccade)</p></li>
+<li><p><strong>end</strong> – Ending word index in gaze information (e.g. Saccade)</p></li>
+<li><p><strong>word_idx</strong> – Index of word</p></li>
+<li><p><strong>sentences</strong> – Index of sentence</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="util.gaze_analyze.calculate_impaction">
+<code class="sig-prename descclassname">util.gaze_analyze.</code><code class="sig-name descname">calculate_impaction</code><span class="sig-paren">(</span><em class="sig-param">avg_fix</em>, <em class="sig-param">avg_sac</em>, <em class="sig-param">avg_reg</em><span class="sig-paren">)</span><a class="headerlink" href="#util.gaze_analyze.calculate_impaction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the impaction by using gaze information
+There are three parameters, (weight of fixation, saccade, regression)
+Optimize it heuristically and use it to decide difficulty of reading</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>avg_fix</strong> – Average fixation time</p></li>
+<li><p><strong>avg_sac</strong> – Average saccade time</p></li>
+<li><p><strong>avg_reg</strong> – Average regression time</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Impaction of gaze calculated</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<span class="target" id="module-util.read_configuration"></span><div class="section" id="read-configuration">
+<h2>Read Configuration<a class="headerlink" href="#read-configuration" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="util.read_configuration.configuration">
+<code class="sig-prename descclassname">util.read_configuration.</code><code class="sig-name descname">configuration</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#util.read_configuration.configuration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read configuration from text file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Configurations</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<span class="target" id="module-util.read_text"></span><div class="section" id="pdf2html">
+<h2>pdf2html<a class="headerlink" href="#pdf2html" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="util.read_text.is_ascii">
+<code class="sig-prename descclassname">util.read_text.</code><code class="sig-name descname">is_ascii</code><span class="sig-paren">(</span><em class="sig-param">word</em><span class="sig-paren">)</span><a class="headerlink" href="#util.read_text.is_ascii" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check non-ascii character is included in word or not</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>word</strong> – Work to check non-ascii character</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True (Only ascii is included) / False (Non-ascii character is included)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="util.read_text.mapping">
+<code class="sig-prename descclassname">util.read_text.</code><code class="sig-name descname">mapping</code><span class="sig-paren">(</span><em class="sig-param">text</em><span class="sig-paren">)</span><a class="headerlink" href="#util.read_text.mapping" title="Permalink to this definition">¶</a></dt>
+<dd><p>Replace special character in text.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>text</strong> – String to process</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Processed string</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="util.read_text.pdf2html">
+<code class="sig-prename descclassname">util.read_text.</code><code class="sig-name descname">pdf2html</code><span class="sig-paren">(</span><em class="sig-param">filename</em><span class="sig-paren">)</span><a class="headerlink" href="#util.read_text.pdf2html" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert pdf file to html file using pdf2htmlex program.
+pdf2htmlex is runned using docker and python run it with shell command</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename</strong> – Filename of pdf to convert</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>HTML document content</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="util.read_text.spaning">
+<code class="sig-prename descclassname">util.read_text.</code><code class="sig-name descname">spaning</code><span class="sig-paren">(</span><em class="sig-param">html</em>, <em class="sig-param">word_idx</em>, <em class="sig-param">sentence</em><span class="sig-paren">)</span><a class="headerlink" href="#util.read_text.spaning" title="Permalink to this definition">¶</a></dt>
+<dd><p>Spannning the word in html. Surround “&lt;span&gt;” tag around the word.
+Mark the index in span class.
+Also spanning the sentence in html. Surround “&lt;span&gt;” tag around the sentence.
+Mark the index in span class.
+Word index and sentence index is used to identify hard word and sentence.
+Do it recursively until all word and sentence is spanned</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>html</strong> – HTML data converted from PDF</p></li>
+<li><p><strong>word_idx</strong> – Counter of word index</p></li>
+<li><p><strong>sentence</strong> – Current sentence to tag</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="util.read_text.words2sentence">
+<code class="sig-prename descclassname">util.read_text.</code><code class="sig-name descname">words2sentence</code><span class="sig-paren">(</span><em class="sig-param">sentence</em><span class="sig-paren">)</span><a class="headerlink" href="#util.read_text.words2sentence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deprecated</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>sentence</strong> – Sentence to convert</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>list of word</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="inference.html" class="btn btn-neutral float-left" title="Inference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, SeongJin
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

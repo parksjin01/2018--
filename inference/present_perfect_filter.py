@@ -1,4 +1,16 @@
+"""
+    Present-Perfect
+    ~~~~~~~~~~~~~~~
+"""
+
 def present_perfect_filter(tree):
+    """
+    Infer present-perfect is used in sentence or not
+
+    :param tree: Paresed dependency tree of sentence
+    :return: True (Present-Perfect grammar is used in sentence) / False (Present-Perfect grammar is not used in sentence)
+    """
+
     # print tree
     for idx in range(len(tree)):
         if "VBZ" in str(tree[idx]).split("->")[0].strip() or "VBP" in str(tree[idx]).split("->")[0].strip():

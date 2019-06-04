@@ -1,16 +1,46 @@
+"""
+    Gaze Analyze
+    ~~~~~~~~~~~~
+"""
+
 def calculate_impaction(avg_fix, avg_sac, avg_reg):
+    """
+    Calculate the impaction by using gaze information
+    There are three parameters, (weight of fixation, saccade, regression)
+    Optimize it heuristically and use it to decide difficulty of reading
+
+    :param avg_fix: Average fixation time
+    :param avg_sac: Average saccade time
+    :param avg_reg: Average regression time
+    :return: Impaction of gaze calculated
+    """
+
     avg_fix_param = 0.01
     avg_sac_param = 100
     avg_reg_param = 100
 
     try:
-        print avg_fix, avg_sac, avg_reg
+        print (avg_fix, avg_sac, avg_reg)
         print (avg_fix_param * avg_fix) + (avg_sac_param * avg_sac) + (avg_reg_param * avg_reg)
         return (avg_fix_param * avg_fix) + (avg_sac_param * avg_sac) + (avg_reg_param * avg_reg)
     except:
         return 0
 
 def analyze(word, duration, start, end, word_idx, sentences):
+    """
+    Get information of gaze collected by using eye-tracker.
+    Processing information to call calculate-impaction function.
+    If impaction is larger than threshold, clear word, duration, start, end list
+    It means user feel difficult to read this picture.
+
+    :param word: Recently read word
+    :param duration: Fixation time of each word in word list
+    :param start: Starting word index in gaze information (e.g. Saccade)
+    :param end: Ending word index in gaze information (e.g. Saccade)
+    :param word_idx: Index of word
+    :param sentences: Index of sentence
+    :return:
+    """
     threshold = 29
     parsed_fixation = {}
     idx = 0
@@ -25,7 +55,7 @@ def analyze(word, duration, start, end, word_idx, sentences):
                     parsed_fixation[k_idx] = [[int(duration[idx]), int(start[idx]), int(end[idx]), int(w_idx)]]
                 break
         idx += 1
-    print parsed_fixation
+    # print parsed_fixation
 
     for key, value in parsed_fixation.items():
 
@@ -69,16 +99,16 @@ def analyze(word, duration, start, end, word_idx, sentences):
         except:
             average_regression = 0
 
-        print "Fixation", average_fixation
-        print "Saccade", average_saccade
-        print "Regression", average_regression
+        print ("Fixation", average_fixation)
+        print ("Saccade", average_saccade)
+        print ("Regression", average_regression)
 
         # if (average_saccade < 0.01):
         #     return word, duration, start, end, word_idx
         if calculate_impaction(average_fixation, average_saccade, average_regression) > threshold and len(value) > 6:
-            print "-"*200
-            print "RESET"
-            print "-"*200
+            print ("-"*200)
+            print ("RESET")
+            print ("-"*200)
             word = []
             duration = []
             start = []

@@ -1,4 +1,16 @@
+"""
+    Passive
+    ~~~~~~~
+"""
+
 def passive_filter(tree):
+    """
+    Infer passive grammar is used in this sentence or not
+
+    :param tree: Paresed dependency tree of sentence
+    :return: True (Passive grammar is used in sentence) / False (Passive grammar is not used in sentence)
+    """
+
     # print tree
     for idx in range(len(tree)):
         if "VBZ" in str(tree[idx]).split("->")[0].strip() or "VBP" in str(tree[idx]).split("->")[0].strip() or "VBD" in str(tree[idx]).split("->")[0].strip() or "VB" in str(tree[idx]).split("->")[0].strip():

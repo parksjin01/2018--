@@ -1,5 +1,10 @@
 # -*- encoding: utf-8 -*-
 
+"""
+    Cread Word Database
+    ~~~~~~~~~~~~~~~~~~~
+"""
+
 import os
 import sqlite3
 
@@ -10,11 +15,20 @@ TARGET_FILE_FULL_PATH = os.path.join(TARGET_DIR, TARGET_FILE)
 
 
 def makeDir():
+    """
+    Check target directory is exist or not
+    If target dicrectory is not exist, create target directory
+
+    """
     if not os.path.isdir(TARGET_DIR):
         os.makedirs(TARGET_DIR)
 
 
 def createTable():
+    """
+    Convert text word information such as meaning into sqlite3 database
+
+    """
     f=open("data.txt")
 
     con = sqlite3.connect(TARGET_FILE_FULL_PATH)

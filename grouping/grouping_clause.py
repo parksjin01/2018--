@@ -1,4 +1,23 @@
+"""
+    grouping_clause
+    ~~~~~~~~~~~~~~~
+"""
+
 def grouping_clause(tree, pivot, res):
+
+    """
+
+    Provide grouping of leaf node from dependency parsed tree.
+    This service is used for grouping the leaf node phrase.
+    Normally, SBAR label is used as pivot
+
+    :param tree: Paresed dependency tree of sentence
+    :param pivot: Dependency label, which is used to grouping the leaf node
+    :param res: Result of grouping
+
+
+    """
+
     end = ""
     start_idx = 0
     for idx in range(len(tree)):
