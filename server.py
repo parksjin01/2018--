@@ -21,7 +21,7 @@ from werkzeug import secure_filename
 from grouping.grouping_phrase import grouping_phrase
 from grouping.grouping_clause import grouping_clause
 from util.read_configuration import configuration
-from util.read_text import read_file
+# from util.read_text import read_file
 from util.read_text import pdf2html
 from util.read_text import get_sentence
 from util.extract_image import extract_image
